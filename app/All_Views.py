@@ -41,21 +41,32 @@ def login():
     return render_template("public/Landing-page/login.html")
 
 
-@app.route("/registro")  # esto es el link que ponemos en el menú para cambiar de pagina
-def registro():
+@app.route("/registro", methods=["POST", "GET"])
+def nuevo_registro():
     #! hashed_pswd = pbkdf2_sha256.hash(contraseña)  hashear contraseña
-    return render_template("public/Landing-page/registro.html")
+    if request.method == "GET":
+        return render_template("public/Landing-page/registro.html")
+    if request.method == "POST":
+        nombre = request.form.get("nombre")
+        apellido = request.form.get("apellido")
+        documento_usuario = request.form.get("documento_usuario")
+        edad = request.form.get("edad")
+        email = request.form.get("email")
+        contraseña = request.form.get("contraseña")
+        roles = 2
+        dbController.agregar_usuario(documento_usuario, nombre, contraseña, roles, apellido, edad, email)
+        return redirect("/login")
 
 # Cerrar sesión
 
 
-@app.route("/logout")
+@ app.route("/logout")
 def logout():
     session.pop("usuario", None)
     return redirect("/login")
 
 
-@app.before_request
+@ app.before_request
 def antes_de_cada_peticion():
     ruta = request.path
     print("imprimiendo ruta: ", ruta)
@@ -67,7 +78,7 @@ def antes_de_cada_peticion():
 # Usuario
 
 
-@app.route("/mi-perfil-usuario")
+@ app.route("/mi-perfil-usuario")
 def my_profile_user():
     if session["account"] == 2:
         perfil_user = dbController.obtener_perfil_por_cccc(session["usuario"])
@@ -92,21 +103,21 @@ def eliminarPerfil():
     dbController.eliminar_perfil(request.form["documentoCliente"])
     return redirect("/login")
 
-@app.route("/mis-vuelos-usuario")
+@ app.route("/mis-vuelos-usuario")
 def mis_vuelos_user():
     if session["account"] == 2:
         miVuelo = dbController.get_vuelo_por_doc_user(session["usuario"])
         return render_template("/public/usuarios/Mis_Vuelos_Usuario.html", miVuelo=miVuelo)
 
 
-@app.route("/compra-usuario/<int:id>")
+@ app.route("/compra-usuario/<int:id>")
 def compra_user(id):
     if session["account"] == 2:
         vuelo = dbController.obtener_vuelo_por_id(id)
         return render_template("/public/usuarios/Usuario_compra.html", vuelo=vuelo)
 
 
-@app.route('/compra-usuario', methods=["POST"])
+@ app.route('/compra-usuario', methods=["POST"])
 def hacerCompra():
     cc = session["usuario"]
     tickets = request.form["nTickets"]
@@ -115,8 +126,7 @@ def hacerCompra():
     dbController.comprarTickets(tickets, cc, id)
     return redirect("/home-user")
 
-
-@app.route("/home-user")
+@ app.route("/home-user")
 def homeUser():
     if session["account"] == 2:
         vuelos = dbController.obtener_vuelos()
@@ -125,15 +135,17 @@ def homeUser():
 # Piloto
 
 
-@app.route("/mi-perfil-piloto")
+@ app.route("/mi-perfil-piloto")
 def piloto_mi_perfil():
     if session["account"] == 3:
+        perfil_piloto = dbController.obtener_perfil_piloto_por_cc(100000)
         return render_template("/public/Piloto/mi-perfil.html")
     return redirect(url_for("logout"))
 
 
-@app.route("/mis-vuelos-piloto")
+@ app.route("/mis-vuelos-piloto")
 def piloto_mis_vuelos():
     if session["account"] == 3:
+        vuelos = dbController.obtener_vuelos_piloto()
         return render_template("/public/Piloto/mis-vuelos.html")
     return redirect(url_for("logout"))

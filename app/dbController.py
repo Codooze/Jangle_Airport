@@ -114,6 +114,7 @@ def eliminar_perfil(id):
     conexion.commit()
     conexion.close()
 
+
     # - en el html va algo así
     #                    <td>
     #                         <form action="{{url_for('eliminar_juego')}}" method="POST">
