@@ -15,81 +15,40 @@
 
 {% block Centro %} 
     <div class="principal"> 
-        <section class="filtrar">
-            <select name="Origen" id="org" class="datos">
-                <option disabled selected>Elige Origen</option>
-                <option value="Bg">Bogotá--Colombia</option>
-                <option value="Md">Medellin--Colombia</option>
-                <option value="cl">Cali--Colombia</option>
-                <option value="br">Barranquilla--Colombia</option>
-                <option value="Ct">Cartagena--Colombia</option>
-                <option value="Pr">Paris--Francia</option>
-                <option value="Rm">Roma--Italia</option>
-                <option value="Vn">Venecia--Italia</option>
-                <option value="Mi">Miami--EEUU</option>
-            </select>
-
-            <select name="Destino" id="Dst" class="datos">
-                <option disabled selected>Elige Destino</option>
-                <option value="Bg">Bogotá--Colombia</option>
-                <option value="Md">Medellin--Colombia</option>
-                <option value="cl">Cali--Colombia</option>
-                <option value="br">Barranquilla--Colombia</option>
-                <option value="Ct">Cartagena--Colombia</option>
-                <option value="Pr">Paris--Francia</option>
-                <option value="Rm">Roma--Italia</option>
-                <option value="Vn">Venecia--Italia</option>
-                <option value="Mi">Miami--EEUU</option>
-            </select> 
-
-            <input class="datos" type="date" name="Fecha" placeholder="Ingresa Fecha" size="12">
-            <input class="consulta" type="submit" name="consulta" value="Consultar">
-        </section>
-
-        <section class="tabla">
+        <section id="table">
             <div class="principal">
             <h1><b>Programación Vuelos</b></h1>
             <table>
-                <tr>
-                    <th>Origen</th>
-                    <th>Destino</th>
-                    <th>Fecha</th>
-                    <th class="seleccion">Selección</th>
-                </tr>
-                <tr>
-                    <td>Origen</th>
-                    <td>Destino</th>
-                    <td>Fecha</th>
-                    <td class="seleccion"> <input type="radio" name="seleccionar-vuelo"> </td>
-                </tr>
-                <tr>
-                    <td>Origen</th>
-                    <td>Destino</th>
-                    <td>Fecha</th>
-                    <td class="seleccion"> <input type="radio" name="seleccionar-vuelo"> </td>
-                </tr>
-                <tr>
-                    <td>Origen</th>
-                    <td>Destino</th>
-                    <td>Fecha</th>
-                    <td class="seleccion"> <input type="radio" name="seleccionar-vuelo"> </td>
-                </tr>
-                <tr>
-                    <td>Origen</th>
-                    <td>Destino</th>
-                    <td>Fecha</th>
-                    <td class="seleccion"> <input type="radio" name="seleccionar-vuelo"> </td>
-                </tr>
+                <thead>
+                    <tr>
+                        <th>Origen</th>
+                        <th>Destino</th>
+                        <th>Fecha</th>
+                        <th>Comprar</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for vuelo in vuelos %}
+                        <tr>
+                            <td>{{vuelo[1]}}</td>
+                            <td>{{vuelo[2]}}</td>
+                            <td>{{vuelo[3]}}</td>
+                            <td>             
+                                <a id="comprarusuario" href="{{url_for('compra_user', id=vuelo[0])}}" class="button is-info">Comprar</a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
             </table>
         </section>
 
-        <section class="buttonComprar">
-            <!-- Contenedor para centrar el botón, !!!!NO TOCAR!!!! Si tiene una mejor idea, hágalo :v -->
-            <form action="/compra-usuario">
+        <!-- <section class="buttonComprar">
+           Contenedor para centrar el botón, !!!!NO TOCAR!!!! Si tiene una mejor idea, hágalo :v -->
+            <!-- <form action="/compra-usuario">
                 <input class="reserva" type="submit" name="comprar" value="Comprar" />
-            </form>
-        </section>  
-        
+            </form> -->
+        <!-- </section>   -->
+
     </div>
 
     {% endblock %}

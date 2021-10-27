@@ -12,3 +12,12 @@
     flex-direction: column;
 }
 
+#table{
+    color: rgb(243, 243, 243);
+    background-color: rgba(59, 66, 78, 0.87);
+
+}
+h3{
+    color: #fff !important;
+    font-weight: bold !important;
+}
