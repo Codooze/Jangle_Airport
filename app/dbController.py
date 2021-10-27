@@ -1,3 +1,4 @@
+from werkzeug.wrappers import request
 from app import db
 
 
@@ -90,6 +91,20 @@ def obtener_perfil_por_cccc(cc):
     conexion.close()
     return perfil_user
 
+def actualizar_perfil(contraseña, email, id):
+    conexion = db.obtener_conexion()
+    with conexion.cursor() as cursor:
+        cursor.execute("UPDATE cliente SET Contraseña = %s, Email = %s WHERE documentoCliente = %s",(contraseña, email, id))
+    conexion.commit()
+    conexion.close()
+
+def eliminar_perfil(id):
+    conexion = db.obtener_conexion()
+    with conexion.cursor() as cursor:
+        cursor.execute("DELETE FROM cliente WHERE documentoCliente = %s",(id,))
+    conexion.commit()
+    conexion.close()
+
     # - en el html va algo así
     #                    <td>
     #                         <form action="{{url_for('eliminar_juego')}}" method="POST">
@@ -104,8 +119,9 @@ def obtener_perfil_por_cccc(cc):
     #     cursor.execute("DELETE FROM juegos WHERE id = %s", (id,))
     # conexion.commit()
     # conexion.close()
-    # - en allviews va algo así:
+
+# - en allviews va algo así:
 #     @app.route("/eliminar_juego", methods=["POST"])
-# def eliminar_juego():
+#   def eliminar_juego():
 #     controlador_juegos.eliminar_juego(request.form["id"])
 #     return redirect("/juegos")
