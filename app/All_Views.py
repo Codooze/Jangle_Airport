@@ -109,7 +109,7 @@ def hacerCompra():
         return redirect("/home-user")
 
 
-@ app.route("/home-user")
+@ app.route("/home-user", methods=["GET"])
 def homeUser():
     if session["account"] == 2:
         vuelos = dbController.obtener_vuelos()
