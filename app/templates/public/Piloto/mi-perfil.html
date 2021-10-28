@@ -18,7 +18,7 @@
 {% block Centro %}
     <div class="principal">
         <div class="titulo">Mi Perfil</div>
-        <form action="#">
+        <form action="/mi-perfil-piloto", method="POST">
             <div class="detalle-piloto">
                 <div class="input-box">
                     <span class="details">Nombre</span>
@@ -50,15 +50,13 @@
                 </div>
                 <div class="input-box">
                     <span class="details">Nueva contraseña</span>
-                    <input type="password" placeholder="Introduzca su nueva contraseña" required>
+                    <input type="password" name="nuevaContraseña" placeholder="Introduzca su nueva contraseña" required>
                 </div>
                 <div class="input-box">
                     <span class="details">Confirmar contraseña</span>
-                    <input type="password" placeholder="Confirme su contraseña" required>
+                    <input type="password" name="confirmarContraseña" placeholder="Confirme su contraseña" required>
                 </div>
-                <div class="button1">
-                    <input type="submit" value="Editar">
-                </div>
+
             </div>
             <div class="button">
                 <input type="submit" value="Guardar">

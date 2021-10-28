@@ -121,14 +121,26 @@ def homeUser():
 @ app.route("/mi-perfil-piloto")
 def piloto_mi_perfil():
     if session["account"] == 3:
-        perfil_piloto = dbController.obtener_perfil_piloto_por_cc(100000)
-        return render_template("/public/Piloto/mi-perfil.html")
+        perfil_piloto = dbController.obtener_perfil_piloto_por_cc(session["usuario"])
+        return render_template("/public/Piloto/mi-perfil.html", perfil_piloto = perfil_piloto)
+    return redirect(url_for("logout"))
+
+@ app.route("/mi-perfil-piloto", methods=['GET', 'POST'])
+def actualizar_contraseña_piloto():
+    if session["account"] == 3:
+        if request.method == 'POST':
+            nueva_contraseña = request.form['nuevaContraseña']
+            confirmar_contraseña = request.form['confirmarContraseña']
+            if(nueva_contraseña == confirmar_contraseña):
+                perfil_piloto = dbController.actualizar_contraseña_piloto(nueva_contraseña, session["usuario"],)
+                return render_template("/public/Piloto/mi-perfil.html", perfil_piloto = perfil_piloto)
     return redirect(url_for("logout"))
 
 
 @ app.route("/mis-vuelos-piloto")
 def piloto_mis_vuelos():
     if session["account"] == 3:
-        vuelos = dbController.obtener_vuelos_piloto()
-        return render_template("/public/Piloto/mis-vuelos.html")
+        vuelos = dbController.obtener_vuelos_piloto(session["usuario"])
+        return render_template("/public/Piloto/mis-vuelos.html", vuelos = vuelos)
     return redirect(url_for("logout"))
+
