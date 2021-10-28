@@ -1,4 +1,4 @@
-from app import app
+from app import app, db
 from datetime import datetime
 from flask import Flask, render_template, request, redirect, flash, session, url_for
 from app import dbController
@@ -84,6 +84,24 @@ def my_profile_user():
         perfil_user = dbController.obtener_perfil_por_cccc(session["usuario"])
         return render_template("/public/usuarios/Mi_Perfil_Usuario.html", perfil_user=perfil_user)
 
+@app.route("/editar-mi-perfil-usuario")
+def edit_my_profile_user():
+    perfil_user = dbController.obtener_perfil_por_cccc(session["usuario"])
+    vuelos = dbController.obtener_vuelos()
+    return render_template("public/usuarios/Editar_Mi_Perfil_Usuario.html", vuelos=vuelos,perfil_user=perfil_user)
+
+@app.route('/mi-perfil-usuario', methods=["POST"])
+def actualizarPerfil():
+    id = session["usuario"]
+    contraseña = request.form["newPass"]
+    email = request.form["email"]
+    dbController.actualizar_perfil(contraseña, email, id)
+    return redirect("/mi-perfil-usuario")
+
+@app.route('/mi-perfil-usuario', methods=["POST"])
+def eliminarPerfil():
+    dbController.eliminar_perfil(request.form["documentoCliente"])
+    return redirect("/login")
 
 @ app.route("/mis-vuelos-usuario")
 def mis_vuelos_user():
@@ -101,13 +119,12 @@ def compra_user(id):
 
 @ app.route('/compra-usuario', methods=["POST"])
 def hacerCompra():
-    if session["account"] == 2:
-        cc = session["usuario"]
-        tickets = request.form["nTickets"]
-        idVuelo = request.form["id"]
-        dbController.comprarTickets(tickets, cc, idVuelo)
-        return redirect("/home-user")
-
+    cc = session["usuario"]
+    tickets = request.form["nTickets"]
+    id = request.form["id"]
+    print(id)
+    dbController.comprarTickets(tickets, cc, id)
+    return redirect("/home-user")
 
 @ app.route("/home-user")
 def homeUser():

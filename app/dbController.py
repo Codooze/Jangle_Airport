@@ -1,3 +1,4 @@
+from werkzeug.wrappers import request
 from app import db
 import pymysql
 
@@ -99,35 +100,20 @@ def obtener_perfil_por_cccc(cc):
     conexion.close()
     return perfil_user
 
-
-def agregar_usuario(documento_usuario, nombre, contraseña, roles, apellido, edad, email):
+def actualizar_perfil(contraseña, email, id):
     conexion = db.obtener_conexion()
     with conexion.cursor() as cursor:
-        cursor.execute("INSERT INTO cliente(documentoCliente, Nombre, Contraseña, Roles_idRoles, Apellido, Edad, Email) VALUES (%s, %s, %s, %s, %s, %s, %s)",
-                       (documento_usuario, nombre, contraseña, roles, apellido, edad, email,))
+        cursor.execute("UPDATE cliente SET Contraseña = %s, Email = %s WHERE documentoCliente = %s",(contraseña, email, id))
     conexion.commit()
     conexion.close()
 
-
-def obtener_perfil_piloto_por_cc(cc):
+def eliminar_perfil(id):
     conexion = db.obtener_conexion()
-    perfil_piloto = None
     with conexion.cursor() as cursor:
-        cursor.execute(
-            "SELECT Nombre, Apellido, Edad, Roles_idRoles, documentoPiloto, Email, Contraseña FROM piloto WHERE documentoPiloto = %s", (cc,))
-        perfil_piloto = cursor.fetchone()
+        cursor.execute("DELETE FROM cliente WHERE documentoCliente = %s",(id,))
+    conexion.commit()
     conexion.close()
-    return perfil_piloto
 
-
-def obtener_vuelos_piloto():
-    conexion = db.obtener_conexion()
-    vuelos = []
-    with conexion.cursor() as cursor:
-        cursor.execute("""SELECT vuelos.Fecha, vuelos.Origen, vuelos.Destinos, aviones.idAviones, vuelos.idVuelos from vuelos inner join aviones on vuelos.Aviones_idAviones = aviones.idAviones limit 10""")
-        vuelos = cursor.fetchall()
-    conexion.close()
-    return vuelos
 
     # - en el html va algo así
     #                    <td>
@@ -143,8 +129,9 @@ def obtener_vuelos_piloto():
     #     cursor.execute("DELETE FROM juegos WHERE id = %s", (id,))
     # conexion.commit()
     # conexion.close()
-    # - en allviews va algo así:
+
+# - en allviews va algo así:
 #     @app.route("/eliminar_juego", methods=["POST"])
-# def eliminar_juego():
+#   def eliminar_juego():
 #     controlador_juegos.eliminar_juego(request.form["id"])
 #     return redirect("/juegos")

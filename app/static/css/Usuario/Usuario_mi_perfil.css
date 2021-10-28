@@ -26,6 +26,7 @@ body {
     padding: 30px 50px 30px 15px;
     margin-left: 5px;
     margin-right: 55px;
+    margin-top: 1rem;
     border: 3px solid #fff;
     border-radius: 10px;    
     display: block;
@@ -74,11 +75,12 @@ form .Perfil_usuario .input-box{
     width: 100%;
     outline: none;
     border-radius: 5px;
-    border: 1px solid #ccc;
+    border: 2px solid #ccc;
     padding-left: 5px;
     font-size: 16px;
     border-bottom-width: 2px;
     transition: all 0.3s ease;
+    /* pointer-events: none; */
 }
 
 .Perfil_usuario .input-box input:valid{
@@ -106,8 +108,9 @@ form .Perfil_usuario .input-box{
 
 .button3{
     display: flex;
-    justify-content: right;
+    justify-content: space-between;
 }
+
 
 .boton_eliminar{
     height: 100%;
@@ -123,6 +126,21 @@ form .Perfil_usuario .input-box{
     
 }
 
+.boton_editar
+{
+    height: 100%;
+    width: 20%; 
+    outline: none;
+    color: rgb(252, 244, 244);
+    border: none;
+    font-size: 18px;
+    font-weight: 500;
+    border-radius: 5px;
+    letter-spacing: 1px;
+    background: #f5a967;
+    border-radius: 10px 10px 10px 10px;  
+    border: 3px solid #2515ff;
+}
 form .button{
     height: 45px;
     margin: 45px 0;

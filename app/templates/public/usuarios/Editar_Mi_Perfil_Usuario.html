@@ -1,5 +1,5 @@
 {% extends "public/plantilla/plantilla.html" %}
-{% block title %}Mi Perfil Usuario{% endblock %}
+{% block title %}Mi Perfil Usuario - Editar{% endblock %}
 
 {% block link %}
 <link rel="stylesheet" href="{{ url_for('static', filename='css/Usuario/Usuario_mi_perfil.css') }}">
@@ -14,11 +14,8 @@
 {% block Centro %}   
     <div class="principal">
         <div class="titulo">Mi Perfil</div>
-        <form class="button3" >
-            <button class="boton_editar" > <a href="/editar-mi-perfil-usuario" STYLE= "text-decoration: black;" >Editar</a>  </button>
-            <input class="boton_eliminar" type="submit" value="Eliminar Cuenta" onclick="eliminarPerfil()" >
-        </form>
-        <form >
+
+        <form action="{{url_for('actualizarPerfil')}}", method="post">
             <div class="Perfil_usuario">
                 <div class="input-box">
                     <span class="details">Nombre</span>
@@ -34,7 +31,7 @@
                 </div>
                 <div class="input-box">
                     <span class="details">Id usuario</span>
-                    <input type="text" value= "{{perfil_user[3]}}" onkeypress="return false;" name="id_usuario" required>
+                    <input type="text" value= "{{perfil_user[3]}}" onkeypress="return false;" required>
                 </div>
                 <div class="input-box">
                     <span class="details">Id documento</span>
@@ -46,12 +43,24 @@
                 </div>
                 <div class="input-box">
                     <span class="details">Email</span>
-                    <input type="email" value="{{perfil_user[5]}}" placeholder="Introduzca su email" onkeypress="return false;" required>
+                    <input type="email" value="{{perfil_user[5]}}" placeholder="Introduzca su email" name= "email" required>
                 </div>
-                
+                <div class="input-box">
+                    <span class="details">Nueva contraseña</span>
+                    <input type="password" placeholder="Introduzca su nueva contraseña" name="newPass" required>
+                </div>
+                <div class="input-box">
+                    <span class="details">Confirmar contraseña</span>
+                    <input type="password" placeholder="Confirme su contraseña" required>
+                </div>
             </div>
-            
+            <div class="button"  >
+                <input type="submit" value="Guardar">
+            </div>
+
         </form>
+
+        
 
     </div>
 
