@@ -129,6 +129,14 @@ def obtener_vuelos_piloto():
     conexion.close()
     return vuelos
 
+def agregar_vuelo(codvuelo, destino, idAvion, fecha, horasalida, origen, tickets, total, pilotodoc, pilotorol, tiempovuelo, estado):
+    conexion = db.obtener_conexion()
+    with conexion.cursor() as cursor:
+        cursor.execute("INSERT INTO vuelos(idVuelos, Destinos, Aviones_idAviones, Fecha, HoraSalida, Origen, Tickets, Total, piloto_documentoPiloto, piloto_Roles_idRoles, TiempoVuelo, Estado) VALUES (%s, %s, %s, %s, %s,%s, %s, %s, %s, %s, %s,%s)",
+                       (codvuelo, destino, idAvion, fecha, horasalida, origen, tickets, total, pilotodoc, pilotorol, tiempovuelo, estado))
+    conexion.commit()
+    conexion.close()    
+
     # - en el html va algo así
     #                    <td>
     #                         <form action="{{url_for('eliminar_juego')}}" method="POST">
