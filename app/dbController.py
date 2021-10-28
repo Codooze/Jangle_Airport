@@ -119,15 +119,25 @@ def obtener_perfil_piloto_por_cc(cc):
     conexion.close()
     return perfil_piloto
 
+def actualizar_contraseña_piloto(contraseña, documento):
+    conexion = db.obtener_conexion()
+    with conexion.cursor() as cursor:
+        cursor.execute(
+            "UPDATE piloto SET Contraseña =%s WHERE documentoPiloto = %s", (contraseña, documento,))
+    conexion.commit()
+    conexion.close()    
 
-def obtener_vuelos_piloto():
+
+def obtener_vuelos_piloto(cc):
     conexion = db.obtener_conexion()
     vuelos = []
     with conexion.cursor() as cursor:
-        cursor.execute("""SELECT vuelos.Fecha, vuelos.Origen, vuelos.Destinos, aviones.idAviones, vuelos.idVuelos from vuelos inner join aviones on vuelos.Aviones_idAviones = aviones.idAviones limit 10""")
+        cursor.execute("""SELECT vuelos.Fecha, vuelos.Origen, vuelos.Destinos, aviones.idAviones, vuelos.idVuelos from vuelos inner join aviones on vuelos.Aviones_idAviones = aviones.idAviones WHERE vuelos.piloto_documentoPiloto = %s limit 10""",(cc,))
         vuelos = cursor.fetchall()
     conexion.close()
     return vuelos
+
+
 
     # - en el html va algo así
     #                    <td>
