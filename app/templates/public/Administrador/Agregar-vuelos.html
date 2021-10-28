@@ -13,78 +13,83 @@
 
 
 
-{% block Centro %} 
-    <div class="principal">
-        <section class="tabla">
-            <h1>AGREGAR VUELOS</h1>
-                <div class="adm-addFly">
-                    <section class="opc-agregar-vuelos">
-                        <input type="datetime-local" class="adm-fechayhora">
-                        <input type="text" class="adm-origen" placeholder="Origen">
-                        <input type="text" class="adm-destino" placeholder="Destino">
-                        <input type="text" class="adm-idAvion" placeholder="ID Avion">
-                        <input type="text" class="adm-codVuelo" placeholder="Cod. Vuelo">
-                        <input type="text" class="adm-status" placeholder="Status">
-                    </section>
-                    <section class="secEditar">
-                        <input type="submit" class="adm-agregar-datos">
-                    </section>
-                </div>
-                
-            <table>
-                <tr>
-                    <th>Fecha</th>
-                    <th>Hora Salida</th>
-                    <th>Tiempo de Vuelo</th>
-                    <th>Origen</th>
-                    <th>Destino</th>
-                    <th>ID Avión</th>
-                    <th>Cod. Vuelo</th>
-                    <th>Status</th>
+{% block Centro %}
+    <form class="form"
+    id="form_agregar_vuelos"
+    action="{{url_for('admin_agregar_vuelos')}}" method="POST"
+    name="form_agregar_vuelos">   
+        <div class="principal">
+            <section class="tabla">
+                <h1>AGREGAR VUELOS</h1>
+                    <div class="adm-addFly">
+                        <section class="opc-agregar-vuelos">
+                            <input type="date" name= "fecha" class="adm-fechayhora">
+                            <input type="text" class="adm-origen" name="origen" placeholder="Origen">
+                            <input type="text" class="adm-destino" name="destino" placeholder="Destino">
+                            <input type="text" class="adm-idAvion" name="idAvion" placeholder="ID Avion">
+                            <input type="text" class="adm-codVuelo" name="codvuelo" placeholder="Cod. Vuelo">
+                            <input type="text" class="adm-status" name="status" placeholder="Status">
+                        </section>
+                        <section class="secEditar">
+                            <input type="submit" class="adm-agregar-datos">
+                        </section>
+                    </div>
                     
-                </tr>
-                <tr>
-                    <td>Fecha</td>
-                    <td>Hora Salida</td>
-                    <td>Tiempo de Vuelo</td>
-                    <td>Origen</td>
-                    <td>Destino</td>
-                    <td>ID Avión</td>
-                    <td>Cod. Vuelo</td>
-                    <td>Status</td>
-                </tr>
-                <tr>
-                    <td>Fecha</td>
-                    <td>Hora Salida</td>
-                    <td>Tiempo de Vuelo</td>
-                    <td>Origen</td>
-                    <td>Destino</td>
-                    <td>ID Avión</td>
-                    <td>Cod. Vuelo</td>
-                    <td>Status</td>
-                </tr>
-                <tr>
-                    <td>Fecha</td>
-                    <td>Hora Salida</td>
-                    <td>Tiempo de Vuelo</td>
-                    <td>Origen</td>
-                    <td>Destino</td>
-                    <td>ID Avión</td>
-                    <td>Cod. Vuelo</td>
-                    <td>Status</td>
-                </tr>
-                <tr>
-                    <td>Fecha</td>
-                    <td>Hora Salida</td>
-                    <td>Tiempo de Vuelo</td>
-                    <td>Origen</td>
-                    <td>Destino</td>
-                    <td>ID Avión</td>
-                    <td>Cod. Vuelo</td>
-                    <td>Status</td>
-                </tr>
-            </table>
+                <table>
+                    <tr>
+                        <th>Fecha</th>
+                        <th>Hora Salida</th>
+                        <th>Tiempo de Vuelo</th>
+                        <th>Origen</th>
+                        <th>Destino</th>
+                        <th>ID Avión</th>
+                        <th>Cod. Vuelo</th>
+                        <th>Status</th>
+                        
+                    </tr>
+                    <tr>
+                        <td>Fecha</td>
+                        <td>Hora Salida</td>
+                        <td>Tiempo de Vuelo</td>
+                        <td>Origen</td>
+                        <td>Destino</td>
+                        <td>ID Avión</td>
+                        <td>Cod. Vuelo</td>
+                        <td>Status</td>
+                    </tr>
+                    <tr>
+                        <td>Fecha</td>
+                        <td>Hora Salida</td>
+                        <td>Tiempo de Vuelo</td>
+                        <td>Origen</td>
+                        <td>Destino</td>
+                        <td>ID Avión</td>
+                        <td>Cod. Vuelo</td>
+                        <td>Status</td>
+                    </tr>
+                    <tr>
+                        <td>Fecha</td>
+                        <td>Hora Salida</td>
+                        <td>Tiempo de Vuelo</td>
+                        <td>Origen</td>
+                        <td>Destino</td>
+                        <td>ID Avión</td>
+                        <td>Cod. Vuelo</td>
+                        <td>Status</td>
+                    </tr>
+                    <tr>
+                        <td>Fecha</td>
+                        <td>Hora Salida</td>
+                        <td>Tiempo de Vuelo</td>
+                        <td>Origen</td>
+                        <td>Destino</td>
+                        <td>ID Avión</td>
+                        <td>Cod. Vuelo</td>
+                        <td>Status</td>
+                    </tr>
+                </table>
 
-        </section>
-    </div>
+            </section>
+        </div>
+    </form>     
 {% endblock %}
